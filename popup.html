@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codeforces Focus Mode</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 340px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    
+    .content {
+      padding: 16px;
+    }
+    
+    .status-box {
+      background: white;
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .status-box h3 {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #4CAF50;
+      animation: pulse 2s infinite;
+    }
+    
+    .status-dot.inactive {
+      background: #999;
+      animation: none;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .status-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .toggle-section {
+      background: white;
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .toggle-section h3 {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+    
+    .toggle-label {
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .toggle-icon {
+      font-size: 16px;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    
+    .feature-list {
+      list-style: none;
+      margin-bottom: 15px;
+    }
+    
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      padding: 6px 0;
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .feature-list li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: #4CAF50;
+      color: white;
+      border-radius: 50%;
+      font-size: 9px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    
+    .info-box {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #e8f4fd;
+      border-radius: 6px;
+      font-size: 11px;
+      color: #1976d2;
+      line-height: 1.5;
+    }
+    
+    .footer {
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎯 Codeforces Focus</h1>
+    <p>Distraction-free problem solving</p>
+  </div>
+  
+  <div class="content">
+    <div class="status-box">
+      <h3>Extension Status</h3>
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span class="status-text" id="statusText">Active on Codeforces</span>
+      </div>
+    </div>
+    
+    <div class="toggle-section">
+      <h3>Main Toggle</h3>
+      <div class="toggle-row">
+        <span class="toggle-label"><span class="toggle-icon">🎯</span> Focus Mode</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="focusToggle" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="toggle-section">
+      <h3>Optional Features</h3>
+      <div class="toggle-row">
+        <span class="toggle-label"><span class="toggle-icon">📝</span> Submit Button</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="submitToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label"><span class="toggle-icon">📚</span> Contest Materials</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="materialsToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label"><span class="toggle-icon">📋</span> Hide Contest Nav</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="contestNavToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <ul class="feature-list">
+      <li>Hidden: Main navbar, Logo, Footer</li>
+      <li>Hidden: Contest name, Virtual, Mashup</li>
+      <li>Visible: Contest Nav (Problems, Submit, Status...)</li>
+      <li>Toggle: Submit Button, Contest Materials</li>
+    </ul>
+    
+    <div class="info-box">
+      💡 All features are now controlled through this popup. No floating buttons on the page.
+    </div>
+  </div>
+  
+  <div class="footer">
+    Works on Chrome & Firefox
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

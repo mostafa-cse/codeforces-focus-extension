@@ -1,0 +1,211 @@
+/* ============================================
+   Codeforces Focus Mode - Styles
+   ============================================ */
+
+/* Hide elements by default in focus mode */
+.cf-focus-mode .cf-hidden-element,
+.cf-focus-mode #header,
+.cf-focus-mode .header,
+.cf-focus-mode #footer,
+.cf-focus-mode .footer,
+.cf-focus-mode .menu-list,
+.cf-focus-mode .menu,
+.cf-focus-mode #menu,
+.cf-focus-mode .top-menu,
+.cf-focus-mode .roundbox.menu-box,
+.cf-focus-mode #header .logo,
+.cf-focus-mode .logo-codeforces {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Note: .second-level-menu (contest navigation) is NOT hidden by default
+   It contains: PROBLEMS, SUBMIT, STATUS, STANDINGS, CUSTOM TEST */
+
+/* Hide sidebar elements */
+.cf-focus-mode .roundbox.sidebox {
+  display: none !important;
+}
+
+/* ============================================
+   Show Elements When Toggled
+   ============================================ */
+
+/* Show contest materials when toggled */
+.cf-focus-mode.cf-show-materials .roundbox.sidebox:has(.caption:contains("Contest materials")),
+.cf-focus-mode.cf-show-materials .roundbox.sidebox:has(.titled:contains("Contest materials")),
+.cf-focus-mode.cf-show-materials .roundbox.sidebox.cf-show-materials-box {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* Show submit when toggled */
+.cf-focus-mode.cf-show-submit .roundbox.sidebox:has(a[href*="submit"]),
+.cf-focus-mode.cf-show-submit .roundbox.sidebox:has(.submit),
+.cf-focus-mode.cf-show-submit .submit:not(.cf-toggle-btn),
+.cf-focus-mode.cf-show-submit input[type="submit"]:not(.cf-toggle-btn),
+.cf-focus-mode.cf-show-submit button.submit:not(.cf-toggle-btn) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* Remove hidden-element class when showing */
+.cf-focus-mode.cf-show-materials .roundbox.sidebox.cf-materials-box.cf-hidden-element,
+.cf-focus-mode.cf-show-submit .roundbox.sidebox.cf-submit-box.cf-hidden-element,
+.cf-focus-mode.cf-show-submit .submit.cf-hidden-element,
+.cf-focus-mode.cf-show-submit input[type="submit"].cf-hidden-element {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Hide contest navigation when user chooses to hide it */
+.cf-focus-mode.cf-hide-contest-nav .second-level-menu,
+.cf-focus-mode.cf-hide-contest-nav .contest-nav,
+.cf-focus-mode.cf-hide-contest-nav .contest-menu {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide specific sidebar content (always hidden) */
+.cf-focus-mode .roundbox.sidebox:has(a[href*="virtual"]),
+.cf-focus-mode .roundbox.sidebox:has(a[href*="mashup"]) {
+  display: none !important;
+}
+
+/* Hide copyright/footer content */
+.cf-focus-mode .copyright,
+.cf-focus-mode .roundbox:has(.copyright) {
+  display: none !important;
+}
+
+/* ============================================
+   Problem Statement Focus - Layout
+   ============================================ */
+
+/* Center the problem statement */
+.cf-focus-mode #pageContent,
+.cf-focus-mode .content,
+.cf-focus-mode #body {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+}
+
+/* Hide right column */
+.cf-focus-mode .sidebar,
+.cf-focus-mode .right-column,
+.cf-focus-mode .side,
+.cf-focus-mode #sidebar,
+.cf-focus-mode #right-sidebar {
+  display: none !important;
+}
+
+/* Make problem statement take full width */
+.cf-focus-mode .problem-statement,
+.cf-focus-mode .problemindexholder {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+}
+
+/* Clean up the main content area */
+.cf-focus-mode #pageContent .content,
+.cf-focus-mode .roundbox:has(.problem-statement) {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* ============================================
+   Additional Cleanup
+   ============================================ */
+
+/* Hide Lang column in problem table */
+.cf-focus-mode .problems-table .lang,
+.cf-focus-mode .problems-table td:nth-child(5),
+.cf-focus-mode .problems-table th:nth-child(5) {
+  display: none !important;
+}
+
+/* Hide any remaining navigation */
+.cf-focus-mode .nav,
+.cf-focus-mode .navigation,
+.cf-focus-mode .breadcrumbs,
+.cf-focus-mode .path {
+  display: none !important;
+}
+
+/* Clean up problem statement typography */
+.cf-focus-mode .problem-statement {
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+  color: #333 !important;
+}
+
+.cf-focus-mode .problem-statement .title {
+  font-size: 24px !important;
+  font-weight: bold !important;
+  margin-bottom: 20px !important;
+  color: #1a1a1a !important;
+}
+
+.cf-focus-mode .problem-statement .time-limit,
+.cf-focus-mode .problem-statement .memory-limit {
+  font-size: 14px !important;
+  color: #666 !important;
+  margin-bottom: 10px !important;
+}
+
+/* Hide user info bar */
+.cf-focus-mode .userbox,
+.cf-focus-mode .user-info,
+.cf-focus-mode .lang-chooser,
+.cf-focus-mode .roundbox:has(.lang-chooser) {
+  display: none !important;
+}
+
+/* Hide notification/alerts */
+.cf-focus-mode .alert,
+.cf-focus-mode .notification,
+.cf-focus-mode .notice {
+  display: none !important;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+  .cf-focus-mode #pageContent,
+  .cf-focus-mode .content {
+    padding: 10px !important;
+  }
+  
+  .cf-focus-mode .problem-statement {
+    padding: 10px !important;
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  /* No floating buttons to hide */
+}
